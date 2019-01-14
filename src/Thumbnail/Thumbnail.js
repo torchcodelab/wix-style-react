@@ -75,7 +75,10 @@ class Thumbnail extends React.PureComponent {
         data-hook={dataHook}
       >
         {selected && (
-          <div className={styles.selectedIcon} data-hook="selected-icon">
+          <div
+            className={styles.selectedIcon}
+            data-hook="thumbnail-selected-icon"
+          >
             <Check size="24" />
           </div>
         )}

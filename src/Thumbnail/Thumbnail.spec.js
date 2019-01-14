@@ -11,23 +11,59 @@ describe('Thumbnail', () => {
     const driver = createDriver(<Thumbnail />);
 
     expect(await driver.exists()).toBeTruthy();
-    expect(await driver.getButtonText()).toEqual('Click me!');
   });
 
-  it('should increment', async () => {
-    const driver = createDriver(<Thumbnail />);
+  it('should allow adding title', async () => {
+    const title = 'I am a title';
+    const driver = createDriver(<Thumbnail title={title} />);
 
-    await driver.clickButton();
-    await driver.clickButton();
-
-    expect(await driver.getCountText()).toEqual(
-      'You clicked this button 2 times',
-    );
+    expect(await driver.getTitle()).toEqual(title);
   });
 
-  it('should allow changing the button text', async () => {
-    const driver = createDriver(<Thumbnail buttonText="Press me" />);
+  it('should allow adding description', async () => {
+    const description = 'I am a description';
+    const driver = createDriver(<Thumbnail description={description} />);
 
-    expect(await driver.getButtonText()).toEqual('Press me');
+    expect(await driver.getDescription()).toEqual(description);
+  });
+
+  describe('Image', () => {
+    it('should allow adding image URL', async () => {
+      const driver = createDriver(<Thumbnail image="john.jpg" />);
+
+      expect(await driver.imageExists()).toEqual(true);
+    });
+
+    it('should allow adding image node', async () => {
+      const image = <div>boom</div>;
+      const driver = createDriver(<Thumbnail image={image} />);
+
+      expect(await driver.imageExists()).toEqual(true);
+    });
+  });
+
+  describe('BackgroundImage', () => {
+    it('should allow adding backgroundImage', async () => {});
+    it('should disable title, description and image', async () => {});
+  });
+
+  describe('Selected', () => {
+    const driver = createDriver(<Thumbnail selected />);
+
+    it('should have selected icon', async () => {
+      expect(await driver.selectedIconExists()).toEqual(true);
+    });
+
+    it('should have selected state', async () => {
+      expect(await driver.isSelected()).toEqual(true);
+    });
+  });
+
+  describe('Disabled', () => {
+    const driver = createDriver(<Thumbnail disabled />);
+
+    it('should have disabled state', async () => {
+      expect(await driver.isDisabled()).toEqual(true);
+    });
   });
 });
