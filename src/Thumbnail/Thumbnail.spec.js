@@ -42,9 +42,34 @@ describe('Thumbnail', () => {
     });
   });
 
-  describe('BackgroundImage', () => {
-    it('should allow adding backgroundImage', async () => {});
-    it('should disable title, description and image', async () => {});
+  describe('BackgroundImage', async () => {
+    it('should allow adding backgroundImage as URL', async () => {
+      const driver = await createDriver(
+        <Thumbnail
+          title="title"
+          description="description"
+          image="image.jpg"
+          backgroundImage="john.jpg"
+        />,
+      );
+      expect(await driver.getBackgroundImage().attr('style')).toEqual(
+        'background-image: url(john.jpg);',
+      );
+    });
+
+    it('should disable title, description and image', async () => {
+      const driver = await createDriver(
+        <Thumbnail
+          title="title"
+          description="description"
+          image="image.jpg"
+          backgroundImage="john.jpg"
+        />,
+      );
+      expect(await driver.titleExists()).toEqual(false);
+      expect(await driver.descriptionExists()).toEqual(false);
+      expect(await driver.imageExists()).toEqual(false);
+    });
   });
 
   describe('Selected', () => {

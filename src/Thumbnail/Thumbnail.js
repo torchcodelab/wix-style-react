@@ -44,6 +44,7 @@ class Thumbnail extends React.PureComponent {
       return (
         <div
           className={styles.backgroundImage}
+          data-hook="thumbnail-background-image"
           style={{ backgroundImage: `url(${backgroundImage})` }}
         />
       );
