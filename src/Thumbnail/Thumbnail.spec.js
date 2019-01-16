@@ -27,6 +27,14 @@ describe('Thumbnail', () => {
     expect(await driver.getDescription()).toEqual(description);
   });
 
+  it('should be clickable', async () => {
+    const onClick = jest.fn();
+    const driver = createDriver(<Thumbnail onClick={onClick} />);
+    await driver.click();
+
+    expect(onClick).toHaveBeenCalled();
+  });
+
   describe('Image', () => {
     it('should allow adding image URL', async () => {
       const driver = createDriver(<Thumbnail image="john.jpg" />);
