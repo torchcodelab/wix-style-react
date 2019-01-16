@@ -44,6 +44,10 @@
   border: 2px solid value(D55);
 }
 
+.root:selected::backgroundImage {
+  border-radius: calc(value(borderRadius) - 2px);
+}
+
 .root:disabled {
   border: 1px solid value(D55);
   cursor: default;

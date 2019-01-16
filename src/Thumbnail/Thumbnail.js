@@ -31,6 +31,9 @@ class Thumbnail extends React.PureComponent {
 
     /** Overrides title, description and image properties */
     backgroundImage: PropTypes.node,
+
+    /** Callback function for onClick event */
+    onClick: PropTypes.func,
   };
 
   static defaultProps = {
@@ -62,6 +65,7 @@ class Thumbnail extends React.PureComponent {
       selected,
       disabled,
       backgroundImage,
+      onClick,
     } = this.props;
 
     const hasBackground = !!backgroundImage;
@@ -74,6 +78,7 @@ class Thumbnail extends React.PureComponent {
           this.props,
         )}
         data-hook={dataHook}
+        onClick={onClick}
       >
         {selected && (
           <div
