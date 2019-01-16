@@ -29,6 +29,9 @@ class Thumbnail extends React.PureComponent {
     /** Set disabled state of thumbnail */
     disabled: PropTypes.bool,
 
+    /** Hide icon when thumbnail is selected */
+    hideSelectedIcon: PropTypes.bool,
+
     /** Overrides title, description and image properties */
     backgroundImage: PropTypes.node,
 
@@ -66,6 +69,7 @@ class Thumbnail extends React.PureComponent {
       disabled,
       backgroundImage,
       onClick,
+      hideSelectedIcon,
     } = this.props;
 
     const hasBackground = !!backgroundImage;
@@ -80,7 +84,7 @@ class Thumbnail extends React.PureComponent {
         data-hook={dataHook}
         onClick={onClick}
       >
-        {selected && (
+        {!hideSelectedIcon && selected && (
           <div
             className={styles.selectedIcon}
             data-hook="thumbnail-selected-icon"

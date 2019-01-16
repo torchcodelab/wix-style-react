@@ -35,6 +35,12 @@ describe('Thumbnail', () => {
     expect(onClick).toHaveBeenCalled();
   });
 
+  it('should have hideable selectedIcon', async () => {
+    const driver = createDriver(<Thumbnail selected hideSelectedIcon />);
+
+    expect(await driver.getSelectedIcon().exists()).toBeFalsy();
+  });
+
   describe('Image', () => {
     it('should allow adding image URL', async () => {
       const driver = createDriver(<Thumbnail image="john.jpg" />);

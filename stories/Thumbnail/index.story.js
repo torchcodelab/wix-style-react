@@ -79,6 +79,7 @@ export default {
     image,
     size: 'medium',
     backgroundImage: false,
+    hideSelectedIcon: false,
   },
 
   exampleProps: {
