@@ -3,7 +3,7 @@ import { storySettings } from './storySettings';
 import LiveCodeExample from '../utils/Components/LiveCodeExample';
 
 import Thumbnail from '../../src/Thumbnail';
-import { onClick } from '../../src/Tabs/core/constants/tab-prop-types';
+import Proportion from '../../src/Proportion';
 
 const getImageUrl = (w, h) =>
   `https://static.wixstatic.com/media/c78d05b79ede429fb77c9d8ec4443b93.jpg/v1/fit/w_${w},h_${h}/c78d05b79ede429fb77c9d8ec4443b93.jpg`;
@@ -68,6 +68,9 @@ export default {
 
   component: Thumbnail,
   componentPath: '../../src/Thumbnail/Thumbnail.js',
+  componentWrapper: ({ component }) => (
+    <Proportion aspectRatio={1.3333333333333333}>{component}</Proportion>
+  ),
 
   componentProps: {
     dataHook: storySettings.dataHook,
