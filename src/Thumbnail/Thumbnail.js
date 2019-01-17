@@ -58,12 +58,44 @@ class Thumbnail extends React.PureComponent {
     return backgroundImage;
   };
 
+  getNoBackgroundLayout = ({ title, description, image, size }) => {
+    return (
+      <div className={styles.noBackgroundWrapper}>
+        {image && (
+          <div className={styles.image} data-hook="thumbnail-image">
+            {image}
+          </div>
+        )}
+        {title && (
+          <Text
+            className={styles.title}
+            data-hook="thumbnail-title"
+            size={size}
+            tagName="div"
+            weight="normal"
+          >
+            {title}
+          </Text>
+        )}
+        {description && (
+          <Text
+            className={styles.description}
+            data-hook="thumbnail-description"
+            size={size}
+            weight="thin"
+            tagName="div"
+            secondary
+          >
+            {description}
+          </Text>
+        )}
+      </div>
+    );
+  };
+
   render() {
     const {
       dataHook,
-      title,
-      description,
-      image,
       size,
       selected,
       disabled,
@@ -93,34 +125,7 @@ class Thumbnail extends React.PureComponent {
           </div>
         )}
         {hasBackground && this.resolveBackgroundImage(backgroundImage)}
-        {!hasBackground && image && (
-          <div className={styles.image} data-hook="thumbnail-image">
-            {image}
-          </div>
-        )}
-        {!hasBackground && title && (
-          <Text
-            className={styles.title}
-            data-hook="thumbnail-title"
-            size={size}
-            tagName="div"
-            weight="normal"
-          >
-            {title}
-          </Text>
-        )}
-        {!hasBackground && description && (
-          <Text
-            className={styles.description}
-            data-hook="thumbnail-description"
-            size={size}
-            weight="thin"
-            tagName="div"
-            secondary
-          >
-            {description}
-          </Text>
-        )}
+        {!hasBackground && this.getNoBackgroundLayout(this.props)}
       </div>
     );
   }

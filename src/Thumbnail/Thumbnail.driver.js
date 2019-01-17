@@ -8,9 +8,6 @@ const textTestkitFactory = testkitFactoryCreator(textDriverFactory);
 
 export const thumbnailDriverFactory = base => {
   const byHook = hook => base.$(`[data-hook*="${hook}"]`);
-  const getSelectedIcon = () => byHook('thumbnail-selected-icon');
-  const getImage = () => byHook('thumbnail-image');
-  const getDescription = () => byHook('thumbnail-description').text();
   const titleDriver = async () =>
     textTestkitFactory({
       wrapper: await byHook('thumbnail-title').getNative(),
@@ -24,10 +21,10 @@ export const thumbnailDriverFactory = base => {
     getTitle: async () => (await titleDriver()).getText(),
 
     /** Get thumbnail description */
-    getDescription,
+    getDescription: () => byHook('thumbnail-description').text(),
 
     /** Get selected icon */
-    getSelectedIcon,
+    getSelectedIcon: () => byHook('thumbnail-selected-icon'),
 
     getBackgroundImage: () => byHook('thumbnail-background-image'),
 
@@ -37,13 +34,13 @@ export const thumbnailDriverFactory = base => {
       return stylableState === 'true';
     },
 
-    /** Is Thumbnail selected */
+    /** Is Thumbnail disabled */
     isDisabled: async () => {
       const stylableState = await getStylableState(base, thumbnail, 'disabled');
       return stylableState === 'true';
     },
 
     /** Get thumbnail image */
-    getImage,
+    getImage: () => byHook('thumbnail-image'),
   };
 };

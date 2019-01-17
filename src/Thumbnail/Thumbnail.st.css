@@ -97,3 +97,7 @@
   background-position: center;
   border-radius: value(borderRadius);
 }
+
+.noBackgroundWrapper {
+  text-align: center;
+}

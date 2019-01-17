@@ -7,12 +7,6 @@ import { thumbnailPrivateDriverFactory } from './Thumbnail.driver.private';
 describe('Thumbnail', () => {
   const createDriver = createUniDriverFactory(thumbnailPrivateDriverFactory);
 
-  it('should render', async () => {
-    const driver = createDriver(<Thumbnail />);
-
-    expect(await driver.exists()).toBeTruthy();
-  });
-
   it('should allow adding title', async () => {
     const title = 'I am a title';
     const driver = createDriver(<Thumbnail title={title} />);
@@ -38,7 +32,7 @@ describe('Thumbnail', () => {
   it('should have hideable selectedIcon', async () => {
     const driver = createDriver(<Thumbnail selected hideSelectedIcon />);
 
-    expect(await driver.getSelectedIcon().exists()).toBeFalsy();
+    expect(await driver.getSelectedIcon().exists()).toEqual(false);
   });
 
   describe('Image', () => {
