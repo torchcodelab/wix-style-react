@@ -72,7 +72,7 @@ export default {
     <Proportion aspectRatio={1.3333333333333333}>{component}</Proportion>
   ),
 
-  componentProps: {
+  componentProps: (setState, getState) => ({
     dataHook: storySettings.dataHook,
     title: 'I am a Thumbnail',
     description: 'And I can do this and that',
@@ -80,10 +80,11 @@ export default {
     size: 'medium',
     backgroundImage: false,
     hideSelectedIcon: false,
-  },
+    onClick: () => setState({ selected: !getState().selected }),
+  }),
 
   exampleProps: {
-    onClick: () => alert('Thumbnail Clicked'),
+    onClick: () => 'Thumbnail Clicked',
     size: [
       { label: 'Medium', value: 'medium' },
       { label: 'Small', value: 'small' },

@@ -5,6 +5,12 @@ import styles from './Thumbnail.st.css';
 import Check from 'wix-ui-icons-common/Check';
 import Text from '../Text';
 
+/**
+ * # Thumbnail
+ * Component for showing thumbnails
+ *
+ * It takes full space of parent component, works well together with <Proportion/>
+ * */
 class Thumbnail extends React.PureComponent {
   static displayName = 'Thumbnail';
 
