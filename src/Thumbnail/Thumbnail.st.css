@@ -7,16 +7,21 @@
   borderRadius: 8px;
 }
 
+.border {
+  box-shadow: 0 0 0 value(width) value(color) inset;
+}
+
 .root {
   -st-states: selected, disabled, size(enum(tiny, small, medium)), hasBackground;
   position: relative;
-  margin: 9px 0 0;
-  border: 1px solid value(B30);
-  border-radius: value(borderRadius);
-  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 9px 0 0;
+  border-radius: value(borderRadius);
+  -st-mixin: border(width 1px, color value(B30));
+  cursor: pointer;
+  box-sizing: border-box;
 }
 
 .root:hasBackground {
@@ -24,11 +29,8 @@
   height: 100%;
 }
 
-.root :last-child {
-  padding-bottom: 0;
-}
-
-.root:not(:hasBackground):size(small), .root:not(:hasBackground):size(medium) {
+.root:not(:hasBackground):size(small),
+.root:not(:hasBackground):size(medium) {
   padding: 18px;
 }
 
@@ -37,11 +39,11 @@
 }
 
 .root:selected {
-  border: 2px solid value(B10);
+  -st-mixin: border(width 2px, color value(B10));
 }
 
 .root:selected:disabled {
-  border: 2px solid value(D55);
+  -st-mixin: border(width 2px, color value(D55));
 }
 
 .root:selected::backgroundImage {
@@ -49,7 +51,7 @@
 }
 
 .root:disabled {
-  border: 1px solid value(D55);
+  @include border(1px, value(D55))
   cursor: default;
 }
 
@@ -71,7 +73,8 @@
   background: value(D55);
 }
 
-.root:disabled::title, .root:disabled::description {
+.root:disabled::title,
+.root:disabled::description {
   color: value(D55);
 }
 
