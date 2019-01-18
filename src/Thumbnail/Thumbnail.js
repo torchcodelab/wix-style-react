@@ -5,6 +5,8 @@ import styles from './Thumbnail.st.css';
 import Check from 'wix-ui-icons-common/Check';
 import Text from '../Text';
 
+const noop = () => {};
+
 /**
  * # Thumbnail
  * Component for showing thumbnails
@@ -120,7 +122,7 @@ class Thumbnail extends React.PureComponent {
           this.props,
         )}
         data-hook={dataHook}
-        onClick={onClick}
+        onClick={disabled ? noop : onClick}
       >
         {!hideSelectedIcon && selected && (
           <div

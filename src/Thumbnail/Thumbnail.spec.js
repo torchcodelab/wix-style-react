@@ -93,10 +93,16 @@ describe('Thumbnail', () => {
   });
 
   describe('Disabled', () => {
-    const driver = createDriver(<Thumbnail disabled />);
-
     it('should have disabled state', async () => {
+      const driver = createDriver(<Thumbnail disabled />);
       expect(await driver.isDisabled()).toEqual(true);
+    });
+
+    it('should not trigger onClick', async () => {
+      const onClick = jest.fn();
+      const driver = createDriver(<Thumbnail disabled onClick={onClick} />);
+      await driver.click();
+      expect(onClick).not.toHaveBeenCalled();
     });
   });
 });
