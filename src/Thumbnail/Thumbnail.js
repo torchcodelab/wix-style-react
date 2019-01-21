@@ -6,12 +6,13 @@ import Check from 'wix-ui-icons-common/Check';
 import Text from '../Text';
 
 const noop = () => {};
+const isString = a => typeof a === 'string';
 
 /**
  * # Thumbnail
  * Component for showing thumbnails
  *
- * It takes full space of parent component, works well together with <Proportion/>
+ * It takes full space of parent component, works well together with `<Proportion/>`
  * */
 class Thumbnail extends React.PureComponent {
   static displayName = 'Thumbnail';
@@ -25,7 +26,10 @@ class Thumbnail extends React.PureComponent {
     /** Description node */
     description: PropTypes.node,
 
-    /** Image to display in thumbnail */
+    /** Image to display in thumbnail.
+     * If given as string, it will be used within `<img/>`.
+     * Otherwise can be given as React.Node
+     */
     image: PropTypes.node,
 
     /** Thumbnail size */
@@ -53,27 +57,30 @@ class Thumbnail extends React.PureComponent {
     disabled: false,
   };
 
-  resolveBackgroundImage = backgroundImage => {
-    if (typeof backgroundImage === 'string') {
-      return (
-        <div
-          className={styles.backgroundImage}
-          data-hook="thumbnail-background-image"
-          style={{ backgroundImage: `url(${backgroundImage})` }}
-        />
-      );
-    }
-    return backgroundImage;
-  };
+  renderBackgroundLayout = () =>
+    isString(this.props.backgroundImage) ? (
+      <div
+        className={styles.backgroundImage}
+        data-hook="thumbnail-background-image"
+        style={{ backgroundImage: `url(${this.props.backgroundImage})` }}
+      />
+    ) : (
+      this.props.backgroundImage
+    );
 
-  getNoBackgroundLayout = ({ title, description, image, size }) => {
+  renderNoBackgroundLayout = () => {
+    const { title, description, image, size } = this.props;
+
     return (
       <div className={styles.noBackgroundWrapper}>
         {image && (
-          <div className={styles.image} data-hook="thumbnail-image">
-            {image}
-          </div>
+          <div
+            className={styles.image}
+            data-hook="thumbnail-image"
+            children={isString(image) ? <img src={image} /> : image}
+          />
         )}
+
         {title && (
           <Text
             className={styles.title}
@@ -81,10 +88,10 @@ class Thumbnail extends React.PureComponent {
             size={size}
             tagName="div"
             weight="normal"
-          >
-            {title}
-          </Text>
+            children={title}
+          />
         )}
+
         {description && (
           <Text
             className={styles.description}
@@ -93,13 +100,18 @@ class Thumbnail extends React.PureComponent {
             weight="thin"
             tagName="div"
             secondary
-          >
-            {description}
-          </Text>
+            children={description}
+          />
         )}
       </div>
     );
   };
+
+  renderSelectedIcon = () => (
+    <div className={styles.selectedIcon} data-hook="thumbnail-selected-icon">
+      <Check size="24" />
+    </div>
+  );
 
   render() {
     const {
@@ -124,16 +136,9 @@ class Thumbnail extends React.PureComponent {
         data-hook={dataHook}
         onClick={disabled ? noop : onClick}
       >
-        {!hideSelectedIcon && selected && (
-          <div
-            className={styles.selectedIcon}
-            data-hook="thumbnail-selected-icon"
-          >
-            <Check size="24" />
-          </div>
-        )}
-        {hasBackground && this.resolveBackgroundImage(backgroundImage)}
-        {!hasBackground && this.getNoBackgroundLayout(this.props)}
+        {!hideSelectedIcon && selected && this.renderSelectedIcon()}
+        {hasBackground && this.renderBackgroundLayout()}
+        {!hasBackground && this.renderNoBackgroundLayout()}
       </div>
     );
   }

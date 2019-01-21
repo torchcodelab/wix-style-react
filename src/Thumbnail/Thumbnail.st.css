@@ -15,7 +15,7 @@
   align-items: center;
   margin: 9px 0 0;
   border-radius: value(borderRadius);
-  box-shadow: 0 0 0 2px B30 inset;
+  box-shadow: 0 0 0 1px value(B30) inset;
   cursor: pointer;
   box-sizing: border-box;
 }
@@ -35,11 +35,11 @@
 }
 
 .root:selected {
-  box-shadow: 0 0 0 2px B10 inset;
+  box-shadow: 0 0 0 2px value(B10) inset;
 }
 
 .root:selected:disabled {
-  box-shadow: 0 0 0 2px D55 inset;
+  box-shadow: 0 0 0 2px value(D55) inset;
 }
 
 .root:selected::backgroundImage {
@@ -47,7 +47,7 @@
 }
 
 .root:disabled {
-  box-shadow: 0 0 0 1px D55 inset;
+  box-shadow: 0 0 0 1px value(D55) inset;
   cursor: default;
 }
 

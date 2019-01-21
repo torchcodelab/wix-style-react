@@ -99,13 +99,12 @@ export default {
     ],
     image: [
       {
-        label: 'small image',
-        value: <img src={getImageUrl(64, 64)} />,
+        label: 'image as URL',
+        value: getImageUrl(300, 200),
       },
-      { label: 'normal image', value: image },
       {
-        label: 'big image',
-        value: <img src={getImageUrl(400, 400)} />,
+        label: 'image as <img/> component',
+        value: image,
       },
     ],
   },

@@ -4,9 +4,9 @@ import { createUniDriverFactory } from 'wix-ui-test-utils/uni-driver-factory';
 import Thumbnail from './Thumbnail';
 import { thumbnailPrivateDriverFactory } from './Thumbnail.driver.private';
 
-describe('Thumbnail', () => {
-  const createDriver = createUniDriverFactory(thumbnailPrivateDriverFactory);
+const createDriver = createUniDriverFactory(thumbnailPrivateDriverFactory);
 
+describe('Thumbnail', () => {
   it('should allow adding title', async () => {
     const title = 'I am a title';
     const driver = createDriver(<Thumbnail title={title} />);
@@ -35,18 +35,31 @@ describe('Thumbnail', () => {
     expect(await driver.getSelectedIcon().exists()).toEqual(false);
   });
 
-  describe('Image', () => {
-    it('should allow adding image URL', async () => {
-      const driver = createDriver(<Thumbnail image="john.jpg" />);
-
-      expect(await driver.imageExists()).toEqual(true);
+  describe('`image` prop', () => {
+    describe('as string', () => {
+      it('should use string as <img/> src', async () => {
+        const src = 'john.jpg';
+        const driver = createDriver(<Thumbnail image={src} title="shit" />);
+        expect(
+          await driver
+            .getImage()
+            .$('img')
+            .attr('src'),
+        ).toEqual(src);
+      });
     });
 
-    it('should allow adding image node', async () => {
-      const image = <div>boom</div>;
-      const driver = createDriver(<Thumbnail image={image} />);
-
-      expect(await driver.imageExists()).toEqual(true);
+    describe('as node', () => {
+      it('should render that node as is', async () => {
+        const image = <div data-hook="image-node">catch me</div>;
+        const driver = createDriver(<Thumbnail image={image} />);
+        expect(
+          await driver
+            .getImage()
+            .$('[data-hook="image-node"]')
+            .text(),
+        ).toEqual('catch me');
+      });
     });
   });
 
