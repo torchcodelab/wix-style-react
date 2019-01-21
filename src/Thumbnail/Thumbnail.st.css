@@ -7,10 +7,6 @@
   borderRadius: 8px;
 }
 
-.border {
-  box-shadow: 0 0 0 value(width) value(color) inset;
-}
-
 .root {
   -st-states: selected, disabled, size(enum(tiny, small, medium)), hasBackground;
   position: relative;
@@ -19,7 +15,7 @@
   align-items: center;
   margin: 9px 0 0;
   border-radius: value(borderRadius);
-  -st-mixin: border(width 1px, color value(B30));
+  box-shadow: 0 0 0 2px B30 inset;
   cursor: pointer;
   box-sizing: border-box;
 }
@@ -39,11 +35,11 @@
 }
 
 .root:selected {
-  -st-mixin: border(width 2px, color value(B10));
+  box-shadow: 0 0 0 2px B10 inset;
 }
 
 .root:selected:disabled {
-  -st-mixin: border(width 2px, color value(D55));
+  box-shadow: 0 0 0 2px D55 inset;
 }
 
 .root:selected::backgroundImage {
@@ -51,7 +47,7 @@
 }
 
 .root:disabled {
-  @include border(1px, value(D55))
+  box-shadow: 0 0 0 1px D55 inset;
   cursor: default;
 }
 
